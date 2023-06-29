@@ -6,7 +6,7 @@ $(function() {
             showMessage("Please enter a channel name", 'danger');
             return;
         }
-        const url = "http://192.168.1.5:8080/?name=" + search.toLocaleLowerCase();
+        const url = "https://twitch-url-extractor.up.railway.app/?name=" + search.toLocaleLowerCase();
         $('#search-result').html('');
 
         showSpinner();
