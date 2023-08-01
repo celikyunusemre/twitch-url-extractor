@@ -6,7 +6,7 @@ $(function() {
             showMessage("Please enter a channel name", 'danger');
             return;
         }
-        const url = "https://twitch-url-extractor.up.railway.app/?name=" + search.toLocaleLowerCase();
+        const url = "https://twitch-extractor-api.onrender.com/?name=" + search.toLocaleLowerCase();
         $('#search-result').html('');
 
         showSpinner();
