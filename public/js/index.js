@@ -5,6 +5,9 @@ $(function() {
         if (search == '') {
             showMessage("Please enter a channel name", 'danger');
             return;
+        } else if (search.match("[^a-zA-Z0-9]") || !search.match("[a-zA-Z0-9]{3,25}")) {
+            showMessage("Please enter a valid channel name", 'danger');
+            return;
         }
         const url = "https://twitch-extractor-api.onrender.com/?name=" + search.toLocaleLowerCase();
         $('#search-result').html('');
