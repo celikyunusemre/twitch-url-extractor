@@ -1,12 +1,14 @@
 import type { StreamUrl } from "../models/response/StreamUrl.model";
 import type { StreamDetails } from "../models/response/StreamDetails.model";
+import { Timeout } from "./AdaptersHandler";
+
 
 const api = "https://twitch-extractor-api.onrender.com/api";
 
 export async function fetchStream(name: string): Promise<StreamUrl> {
     try {
         const path = `/search/stream/${name}`;
-        const response = await fetch(api + path);
+        const response = await fetch(api + path, {signal: Timeout(10).signal});
         const data = await response.json();
 
         if (!response.ok) {
@@ -23,7 +25,7 @@ export async function fetchStream(name: string): Promise<StreamUrl> {
 export async function fetchStreamDetails(name: string): Promise<StreamDetails> {
     try {
         const path = `/search/stream/${name}/details`;
-        const response = await fetch(api + path);
+        const response = await fetch(api + path, {signal: Timeout(10).signal});
         const data = await response.json();
 
         if (!response.ok) {
