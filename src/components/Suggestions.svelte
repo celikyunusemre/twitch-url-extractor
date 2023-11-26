@@ -19,12 +19,31 @@
 
     const search = async () => {
         try {
-            const streamPromises = suggestions.map(async (stream) => {
-                const userDetails = await fetchUserDetails(stream);
+            for (const stream of suggestions) {
+                let userDetails;
+                try {
+                    userDetails = await fetchUserDetails(stream);
+                } catch (userError) {
+                    console.error(`Error fetching user details for ${stream}:`, userError);
+                    continue; // Skip to the next suggestion if there is an error
+                }
                 const profileImg = userDetails.profile_image_url;
 
-                const streamUrls = await fetchStream(stream);
-                const streamDetails = await fetchStreamDetails(stream);
+                let streamUrls;
+                try {
+                    streamUrls = await fetchStream(stream);
+                } catch (streamError) {
+                    console.error(`Error fetching stream urls for ${stream}:`, streamError);
+                    continue; // Skip to the next suggestion if there is an error
+                }
+
+                let streamDetails;
+                try {
+                    streamDetails = await fetchStreamDetails(stream);
+                } catch (streamDetailsError) {
+                    console.error(`Error fetching stream details for ${stream}:`, streamDetailsError);
+                    continue; // Skip to the next suggestion if there is an error
+                }
 
                 addData({
                     name: stream,
@@ -34,9 +53,7 @@
                     title: streamDetails.title,
                     viewers: streamDetails.viewer_count,
                 });
-            });
-
-            await Promise.all(streamPromises);
+            }
 
         } catch (error) {
             console.error("Error fetching data:", error);

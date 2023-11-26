@@ -6,7 +6,7 @@ const api = "https://twitch-extractor-api.onrender.com/api";
 export async function fetchUserDetails(name: string): Promise<UserDetails> {
     try {
         const path = `/search/user/${name}`;
-        const response = await fetch(api + path, {signal: Timeout(10).signal});
+        const response = await fetch(api + path, {signal: Timeout().signal});
         const data = await response.json();
 
         if (!response.ok) {
