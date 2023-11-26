@@ -4,7 +4,6 @@
     import { fetchUserDetails } from "../adapters/GetUserDetails";
     import { Card, Button, Avatar, P, Alert } from "flowbite-svelte";
     import { streamData, addData } from "../stores/suggestions.store";
-    import { setBannerMessage, bannerMessage } from "../stores/banner.store";
 
     const suggestions = [
         "jay3",
@@ -17,31 +16,31 @@
         "smoke",
         "tenz",
     ];
-    const search = () => {
-        setBannerMessage("Checking services...");
-        suggestions.forEach(async (stream) => {
-            let profileImg: string;
-            fetchUserDetails(stream).then((userDetails) => {
-                profileImg = userDetails.profile_image_url;
-            });
 
-            fetchStream(stream).then((streamUrls) => {
-                fetchStreamDetails(stream).then((streamDetails) => {
-                    addData({
-                        name: stream,
-                        data: streamUrls,
-                        img: profileImg,
-                        game: streamDetails.game_name,
-                        title: streamDetails.title,
-                        viewers: streamDetails.viewer_count,
-                    });
+    const search = async () => {
+        try {
+            const streamPromises = suggestions.map(async (stream) => {
+                const userDetails = await fetchUserDetails(stream);
+                const profileImg = userDetails.profile_image_url;
+
+                const streamUrls = await fetchStream(stream);
+                const streamDetails = await fetchStreamDetails(stream);
+
+                addData({
+                    name: stream,
+                    data: streamUrls,
+                    img: profileImg,
+                    game: streamDetails.game_name,
+                    title: streamDetails.title,
+                    viewers: streamDetails.viewer_count,
                 });
             });
 
-            if ($bannerMessage !== "Services are alive!") {
-                setBannerMessage("Services are alive!");
-            }
-        });
+            await Promise.all(streamPromises);
+
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
     };
 
     onMount(search);
