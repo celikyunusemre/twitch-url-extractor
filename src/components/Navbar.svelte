@@ -1,10 +1,17 @@
 <script lang="ts">
-    import { Navbar, NavLi, NavUl, DarkMode } from "flowbite-svelte";
+    import {
+        Navbar,
+        NavLi,
+        NavUl,
+        DarkMode,
+        NavHamburger,
+    } from "flowbite-svelte";
 </script>
 
-<Navbar>
+<Navbar let:hidden let:toggle>
     <DarkMode />
-    <NavUl>
+    <NavHamburger on:click={toggle} />
+    <NavUl {hidden}>
         <NavLi href="/"><i class="fa-solid fa-house mr-2 sm:h-9"></i>Home</NavLi
         >
         <NavLi href="https://github.com/celikyunusemre" target="_blank"
