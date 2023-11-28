@@ -9,7 +9,7 @@ $(function() {
             showMessage("Please enter a valid channel name", 'danger');
             return;
         }
-        const url = "https://twitch-extractor-api.onrender.com/?name=" + search.toLocaleLowerCase();
+        const url = "https://twitch-extractor-api.onrender.com/api/search/stream/" + search.toLocaleLowerCase();
         $('#search-result').html('');
 
         showSpinner();
