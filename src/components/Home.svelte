@@ -76,7 +76,7 @@
 
     const streamers = ["shroud", "jay3", "lirik"];
     function getRandomStreamerUsername() {
-        console.log(process.env.YEC)
+        console.log(__YEC__)
         var randomStreamer = Math.floor(Math.random() * streamers.length);
         document
             .getElementById("input-addon")
