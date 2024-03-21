@@ -17,7 +17,9 @@ export default defineConfig(({ command, mode }) => {
     // vite config
     plugins: [svelte()],
     define: {
-      __YEC__: JSON.stringify(env.YEC),
+      __TWITCH_API_CLIENTID__: JSON.stringify(env.TWITCH_API_CLIENTID),
+      __TWITCH_API_CLIENTSECRET__: JSON.stringify(env.TWITCH_API_CLIENTSECRET),
+      
     },
   }
 })

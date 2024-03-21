@@ -3,7 +3,7 @@
     import Spinner from "../components/Spinner.svelte";
     import SearchResult from "./SearchResult.svelte";
     import Suggestions from "./Suggestions.svelte";
-    // import TwitchAuth from "./TwitchAuth.svelte";
+    import TwitchAuth from "./TwitchAuth.svelte";
     import {
         Label,
         Input,
@@ -76,7 +76,6 @@
 
     const streamers = ["shroud", "jay3", "lirik"];
     function getRandomStreamerUsername() {
-        console.log(__YEC__)
         var randomStreamer = Math.floor(Math.random() * streamers.length);
         document
             .getElementById("input-addon")
@@ -132,4 +131,4 @@
     <Suggestions />
 </div>
 
-<!-- <TwitchAuth /> -->
+<TwitchAuth />
