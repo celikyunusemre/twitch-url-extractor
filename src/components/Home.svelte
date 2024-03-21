@@ -4,6 +4,7 @@
     import SearchResult from "./SearchResult.svelte";
     import Suggestions from "./Suggestions.svelte";
     // import TwitchAuth from "./TwitchAuth.svelte";
+    import { VERCEL_YEC } from '$env/static/private';
     import {
         Label,
         Input,
@@ -76,7 +77,7 @@
 
     const streamers = ["shroud", "jay3", "lirik"];
     function getRandomStreamerUsername() {
-        console.log(import.meta.env.VERCEL_YEC)
+        console.log(VERCEL_YEC)
         var randomStreamer = Math.floor(Math.random() * streamers.length);
         document
             .getElementById("input-addon")
